@@ -1,351 +1,171 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>💖</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossa História de Amor</title>
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    <!-- Fontes -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
 
-body {
-  min-height: 100vh;
-  background: radial-gradient(circle at top, #1b0f2b, #05010a);
-  overflow: hidden;
-  font-family: 'poppins', sans-serif;
-  color: white;
-  display: flex;
-  justify-content: center;
-}
+    <style>
+        :root {
+            --primary-color: #d4a373;
+            --bg-color: #fdfaf5;
+            --text-color: #5b4a42;
+            --accent-pink: #eebfbb;
+        }
 
-@font-face {
-  font-family: 'MinhaFonte';
-  src: url('./fonts/MinhaFonte.ttf') format('truetype');
-}
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
 
-.container {
-  text-align: center;
-  z-index: 5;
-  padding: 20px;
+        /* Header */
+        header {
+            padding: 30px;
+            text-align: center;
+        }
 
-}
+        header h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            margin: 0;
+            color: var(--primary-color);
+        }
 
-h1 {
-  font-size: 30px;
-  letter-spacing: 2px;
-  margin-bottom: 20px;
-  opacity: 0.9;
-  font-family: 'MinhaFonte';
-}
+        nav {
+            margin-top: 15px;
+        }
 
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-/* BOTÃO */
-#playBtn {
-  width: 200px;
-  height: 60px;
-  border-radius: 10px;
-  border: 2px solid white;
-  background: #520505;
-  color: white;
-  font-family: 'Great Vibes', cursive;
-  font-size: 20px;
-  cursor: pointer;
-  animation: pulse 2s infinite;
-}
+        /* Hero */
+        .hero {
+            padding: 80px 10%;
+            text-align: center;
+            color: white;
+            background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+                        url('https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&q=80&w=1470')
+                        center/cover;
+        }
 
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 0.7; }
-  50% { transform: scale(1.1); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.7; }
-}
+        .hero h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
 
-/* SLIDER */
-.slider {
-  position: relative;
-  width: 150px;
-  height: 200px;
-  margin: 40px auto;
-  display: none;
-}
+        .video-box {
+            max-width: 900px;
+            margin: 0 auto;
+        }
 
-.slide {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 1.5s ease, transform 5s ease;
-  z-index: 1;
-}
+        .video-box video {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
 
-.slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 20px;
-  box-shadow: 0 0 40px rgba(255,255,255,0.2);
-}
+        /* Galeria */
+        .gallery {
+            padding: 80px 10%;
+            text-align: center;
+        }
 
-.slide.active {
-  opacity: 1;
-  transform: scale(1.05);
-  z-index: 2;
-}
+        .gallery h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
 
-/* PARTÍCULAS */
-.particle {
-  position: fixed;
-  pointer-events: none;
-  opacity: 0.50;
-  animation: float 8s linear forwards;
-  z-index: 1;
-}
+        .grid-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
 
+        .grid-gallery img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: 0.4s;
+            filter: sepia(20%);
+        }
 
-@keyframes float {
-  from {
-    transform: translate(0,0) scale(1);
-    opacity: 0.50;
-  }
-  to {
-    transform: translate(var(--x), var(--y)) scale(0.4);
-    opacity: 0;
-  }
-}
+        .grid-gallery img:hover {
+            filter: sepia(0%);
+            transform: translateY(-5px);
+        }
 
-#heartTransition {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  font-size: 80px;
-  opacity: 0;
-  z-index: 10;
-  transition: transform 2s ease, opacity 1.5s ease;
-  pointer-events: none;
-}
+        /* Footer */
+        footer {
+            padding: 40px;
+            background: #f4ece4;
+            text-align: center;
+            border-top: 1px solid #e0d5cb;
+            font-style: italic;
+        }
 
-#heartTransition.active {
-  transform: translate(-50%, -50%) scale(25);
-  opacity: 1;
-}
-#heartTransition.explode {
-    opacity: 0;
-}
-
-#titulo {
-  transition: opacity 2s ease, transform 2s ease;
-}
-
-#titulo.fade {
-  opacity: 0;
-  transform: translateY(-10px);
-}
-
-.slider::before,
-.slider::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 120%;
-  height: 2px;
-  background: linear-gradient(to right, transparent, pink, transparent);
-  opacity: 0.8;
-}
-
-.slider::before {
-  top: -15px;
-}
-
-.slider::after {
-  bottom: -15px;
-}
-
-.legenda-foto {
-  margin-top: 25px;
-  font-size: 14px;
-  letter-spacing: 1px;
-  opacity: 0.8;
-  text-align: left;
-  animation: fadeInText 2s ease forwards;
-  display: none;
-}
-
-@keyframes fadeInText {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 0.8;
-    transform: translateY(0);
-  }
-}
-
-
-
-</style>
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div id="heartTransition">❤️</div>
+    <header>
+        <h1>Amor & Memórias</h1>
+        <nav>
+            <a href="#">História</a>
+            <a href="#">Galeria</a>
+            <a href="#">Playlist</a>
+            <a href="#">Mensagens</a>
+        </nav>
+    </header>
 
-<div class="container">
-  <h1 id="titulo">Feliz aniversario <br>para minha <br>pessoa especial <br>Eu Te Amo <br>ETERNAMENTE</h1>
-  
-  <button id="playBtn">clica aqui, pra mim ver seu sorriso</button>
+    <section class="hero">
+        <h2>Onde cada detalhe conta <br> a nossa história</h2>
 
-  <div class="slider" id="slider">
-    <div class="slide active"><img src="imgs/foto1.jpg"></div>
-    <div class="slide"><img src="imgs/foto2.jpg"></div>
-    <div class="slide"><img src="imgs/foto3.jpg"></div>
-  </div>
-  <p class="legenda-foto">A maior sorte que tive na vida foi te conhecer,<br> e minha maior felicidade é ter você comigo. <br>
-  Cada momento com você é eterno ❤️
-  </p>
+        <div class="video-box">
+            <video controls playsinline>
+                <source src="video.mp4" type="video/mp4">
+                Seu navegador não suporta vídeo.
+            </video>
+        </div>
+    </section>
 
+    <section class="gallery">
+        <h3>Galeria de Fotos</h3>
+        <div class="grid-gallery">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=400" alt="Casal 1">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=400" alt="Casal 2">
+            <img src="https://images.unsplash.com/photo-1522673607200-164883eeca48?q=80&w=400" alt="Casal 3">
+            <img src="https://images.unsplash.com/photo-1494774139091-9e226da2f87c?q=80&w=400" alt="Casal 4">
+        </div>
+    </section>
 
-<audio id="music" src="music.mp3" loop></audio>
-
-<script>
-const btn = document.getElementById('playBtn');
-const music = document.getElementById('music');
-const slider = document.getElementById('slider');
-const slides = document.querySelectorAll('.slide');
-
-let slideIndex = 0;
-let effectsInterval;
-
-/* EXPLOSÃO */
-function explode(x, y, amount = 40) {
-  for (let i = 0; i < amount; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    p.innerHTML = Math.random() > 0.5 ? '❤️' : '⭐';
-
-    const size = Math.random() * 16 + 10;
-    p.style.fontSize = size + 'px';
-
-    const offsetX = Math.random() * 80 - 40;
-    const offsetY = Math.random () * 80 - 40
-
-    p.style.left = (x + offsetX) + 'px';
-    p.style.top = (y + offsetY) + 'px'
-
-    const angle = Math.random() * Math.PI * 2;
-    const randomness = Math.random() * 0.8 + 0.6;
-
-    const distance = Math.random() * 500 + 150;
-
-    p.style.setProperty('--x', Math.cos(angle) * distance + 'px');
-    p.style.setProperty('--y', Math.sin(angle) * distance + 'px');
-
-    document.body.appendChild(p);
-
-    setTimeout(() => p.remove(), 8000);
-  }
-}
-
-/* EFEITOS CONTÍNUOS */
-function startAmbientEffects(originX, originY) {
-  effectsInterval = setInterval(() => {
-    explode(
-      originX + (Math.random() * 40 - 20),
-      originY + (Math.random() * 40 - 20),
-      6
-    );
-  }, 700);
-}
-
-/* SLIDER */
-function startSlider() {
-  slider.style.display = 'block';
-
-  slides.forEach(slide => slide.classList.remove('active'));
-  slides[0].classList.add('active');
-  slideIndex = 0;
-
-  setInterval(() => {
-    const current = slides[slideIndex];
-    slideIndex = (slideIndex + 1) % slides.length;
-    const next = slides[slideIndex];
-
-    next.classList.add('active');
-
-    setTimeout(() => {
-      current.classList.remove('active');
-    }, 1800);
-  }, 5000);
-}
-
-
-
-/* CLICK */
-btn.addEventListener('click', () => {
-  const titulo = document.getElementById('titulo');
-
-// fade out
-titulo.classList.add('fade');
-
-setTimeout(() => {
-  titulo.innerHTML = `
-    Minha felicidade <br>é ter você<br>Gravado no meu Coraçâo
-  `;
-  
-  titulo.classList.remove('fade');
-}, 900);
-
-  
-  const heart = document.getElementById('heartTransition');
-
-  // toca música
-  music.play();
-
-  // some o botão
-  btn.style.display = 'none';
-
-  // ativa coração
-  heart.classList.add('active');
-
-  // depois que ele crescer...
-  setTimeout(() => {
-  // explosão espalhada pela tela
-  explodeScreen(140);
-
-  // coração some
-  heart.classList.add('explode');
-
-  // mostra fotos
-  slider.style.display = 'block';
-  startSlider();
-
-  document.querySelector('.legenda-foto').style.display = 'block';
-
-
-  // efeitos contínuos (mais suaves)
-  startAmbientEffects(window.innerWidth / 2, window.innerHeight / 2);
-
-}, 1500);
-
-});
-
-function explodeScreen(amount = 120) {
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-
-  for (let i = 0; i < amount; i++) {
-    const x = Math.random() * width;
-    const y = Math.random() * height;
-
-    explode(x, y, 1);
-  }
-}
-
-</script>
+    <footer>
+        🎵 Tocando: Nossa Música Favorita
+    </footer>
 
 </body>
 </html>
+
+
+
